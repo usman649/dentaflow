@@ -1,0 +1,22 @@
+from apps.core.exceptions import ObjectNotFoundException
+from apps.clinic.models import Treatment,TreatmentType
+from apps.authentication.models import User
+
+class TreatmentRepository:
+    def get_treatments(self):
+        treatments = Treatment.objects.filter(patient=User.Roles.PATIENT)
+        return treatments
+
+    def get_treatment(self,treatment_id):
+        treatment = Treatment.objects.filter(id=treatment_id).first()
+        if not treatment:
+            raise ObjectNotFoundException(
+                message="Treatment not found",
+                message_key="treatment_not_found",
+            )
+        return treatment
+
+    def get_treatment_types(self):
+        treatment_types = TreatmentType.objects.all()
+        return treatment_types
+

@@ -1,0 +1,49 @@
+from rest_framework.permissions import IsAuthenticated, AllowAny
+from drf_yasg.utils import swagger_auto_schema
+from drf_yasg  import openapi
+from rest_framework.views import APIView
+from apps.clinic.api.v1.serializers.treatment import (
+    TreatmentListSerializer,
+    TreatmentCreateUpdateSerializer,
+    TreatmentTypeListSerializer
+)
+from apps.clinic.api.v1.services.treatment import TreatmentService
+
+
+class TreatmentCreateListView(APIView):
+    permission_classes = [AllowAny]
+
+    @swagger_auto_schema(
+        request_body=TreatmentCreateUpdateSerializer,
+        responses={200: TreatmentListSerializer},
+        tags=['Treatment'],
+        operation_description='Treatment Create',
+    )
+    def post(self,request,*args,**kwargs):
+        return TreatmentService(request=request).create_treatment(*args,**kwargs)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+class TreatmentTypeListView(APIView):
+    permission_classes = [AllowAny]
+    @swagger_auto_schema(
+        responses={200: TreatmentTypeListSerializer},
+        tags=['TreatmentType'],
+        operation_description='Treatment Types List',
+    )
+    def get(self,request,*args,**kwargs):
+        return TreatmentService(request=request).get_treatment_types(*args,**kwargs)
