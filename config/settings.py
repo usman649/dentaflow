@@ -34,6 +34,7 @@ INSTALLED_APPS = [
     'rest_framework_simplejwt',
     'drf_yasg',
     'django_filters',
+    'corsheaders'
 
 
 
@@ -42,12 +43,17 @@ INSTALLED_APPS = [
 MIDDLEWARE = [
     "django.middleware.security.SecurityMiddleware",
     "django.contrib.sessions.middleware.SessionMiddleware",
+    "corsheaders.middleware.CorsMiddleware",
     "django.middleware.common.CommonMiddleware",
     "django.middleware.csrf.CsrfViewMiddleware",
     "django.contrib.auth.middleware.AuthenticationMiddleware",
     "django.contrib.messages.middleware.MessageMiddleware",
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
 ]
+
+CORS_ALLOW_ALL_ORIGINS = True
+CORS_ALLOW_CREDENTIALS = True
+CORS_ALLOW_HEADERS = ["x-api-key", "content-type", "Authorization"]
 
 ROOT_URLCONF = "config.urls"
 
@@ -149,7 +155,7 @@ SIMPLE_JWT = {
 
 
 SWAGGER_SETTINGS = {
-    "DEFAULT_API_URL": os.getenv("SWAGGER_API_URL", "http://127.0.0.1:8000"),
+    # "DEFAULT_API_URL": os.getenv("SWAGGER_API_URL", "http://127.0.0.1:8000"),
     "SECURITY_DEFINITIONS": {
         "Bearer": {
             "type": "apiKey",

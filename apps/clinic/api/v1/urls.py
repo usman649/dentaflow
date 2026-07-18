@@ -37,6 +37,16 @@ urlpatterns = [
         views.GalleryCreateView.as_view(),
         name='gallery-create',
     ),
+    path(
+        'services/',
+        views.ServiceCreateListView.as_view(),
+        name='service-create-list',
+    ),
+    path(
+        'services/<int:pk>/',
+        views.ServiceDetailUpdateDeleteView.as_view(),
+        name='service-detail-update',
+    )
 
 
 

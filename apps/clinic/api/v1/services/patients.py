@@ -22,12 +22,10 @@ class PatientService(BaseService):
             request=self.request,
         ).qs
 
-        return self.get_response(
+        return self.get_paginated_response(
             filtered_patients,
             PatientListSerializer,
             context={'request': self.request},
-            many=True
-
 
         )
 

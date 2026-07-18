@@ -28,5 +28,13 @@ class TreatmentAdmin(admin.ModelAdmin):
 
 @admin.register(Service)
 class ServiceAdmin(admin.ModelAdmin):
-    list_display = ['id','name','price','duration_minutes','treatment_type']
+    list_display = ['id','name','price','duration_minutes','treatment_type','is_active']
+    list_display_links = ['name','price','duration_minutes','treatment_type','is_active']
+    search_fields = ['name','price','duration_minutes','treatment_type','is_active']
+
+@admin.register(Material)
+class MaterialAdmin(admin.ModelAdmin):
+    list_display = ['id','name','service','quantity']
+    list_display_links = ['name','service','quantity']
+    search_fields = ['name','service','quantity']
 

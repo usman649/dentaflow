@@ -21,11 +21,10 @@ class AppointmentService(BaseService):
             request=self.request,
         ).qs
 
-        return self.get_response(
+        return self.get_paginated_response(
             filtered_appointments,
             AppointmentListSerializer,
             context={'request': self.request},
-            many=True
         )
 
     def create_appointment(self,*args,**kwargs):
