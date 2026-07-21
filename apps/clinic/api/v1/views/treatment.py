@@ -42,3 +42,23 @@ class TreatmentTypeCreateListView(APIView):
     )
     def post(self,request,*args,**kwargs):
         return TreatmentService(request=request).create_treatment_type(*args,**kwargs)
+
+
+class TreatmentTypeDetailUpdateDeleteView(APIView):
+    permission_classes = [AllowAny]
+    @swagger_auto_schema(
+        request_body=TreatmentTypeCreateUpdateSerializer,
+        responses={200: TreatmentTypeListSerializer},
+        tags=['TreatmentType'],
+        operation_description='Treatment Types Update',
+    )
+    def patch(self,request,*args,**kwargs):
+        return TreatmentService(request=request).update_treatment_type(*args,**kwargs)
+
+    @swagger_auto_schema(
+        responses={200: TreatmentTypeListSerializer},
+        tags=['TreatmentType'],
+        operation_description='Treatment Types Delete',
+    )
+    def delete(self,request,*args,**kwargs):
+        return TreatmentService(request=request).delete_treatment_type(*args,**kwargs)

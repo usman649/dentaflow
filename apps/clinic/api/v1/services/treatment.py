@@ -7,6 +7,7 @@ from apps.clinic.api.v1.serializers.treatment import (
 )
 from apps.core.services import BaseService
 from apps.authentication.models import User
+from rest_framework import status
 
 class TreatmentService(BaseService):
     def __init__(self,request):
@@ -24,6 +25,8 @@ class TreatmentService(BaseService):
             TreatmentListSerializer,
             context={'request': self.request}
         )
+
+
 
     def get_treatment_types(self,*args,**kwargs):
         treatment_types = self.db.get_treatment_types()
@@ -47,6 +50,29 @@ class TreatmentService(BaseService):
             context={'request': self.request}
         )
 
+    def update_treatment_type(self, *args, **kwargs):
+        treatment_type= self.db.get_treatment_type(treatment_type_id=kwargs.get('pk'))
+        serializer_class = TreatmentTypeCreateUpdateSerializer(
+            instance=treatment_type,
+            data=self.request.data,
+            partial=True,
+            context={'request': self.request}
+        )
+        serializer_class.is_valid(raise_exception=True)
+        serializer_class.save()
+        return self.get_response_object(
+            obj=treatment_type,
+            response_serializer_class=TreatmentTypeListSerializer,
+            context={'request': self.request}
+        )
+
+    def delete_treatment_type(self, *args, **kwargs):
+        treatment_type = self.db.get_treatment_type(treatment_type_id=kwargs.get('pk'))
+        treatment_type.delete()
+        return self.get_response_object(
+            context={'request': self.request},
+            status_code=status.HTTP_204_NO_CONTENT,
+        )
 
 
 

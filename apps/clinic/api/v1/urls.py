@@ -33,6 +33,11 @@ urlpatterns = [
         name='treatment-type-list',
     ),
     path(
+        'treatment-types/<int:pk>/',
+        views.TreatmentTypeDetailUpdateDeleteView.as_view(),
+        name='treatment-type-detail-update',
+    ),
+    path(
         'galleries/',
         views.GalleryCreateView.as_view(),
         name='gallery-create',

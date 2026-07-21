@@ -20,3 +20,12 @@ class TreatmentRepository:
         treatment_types = TreatmentType.objects.all()
         return treatment_types
 
+    def get_treatment_type(self, treatment_type_id):
+        treatment_type = TreatmentType.objects.filter(id=treatment_type_id).first()
+        if not treatment_type:
+            raise ObjectNotFoundException(
+                message="Treatment type not found",
+                message_key="treatment_type_not_found",
+            )
+        return treatment_type
+
