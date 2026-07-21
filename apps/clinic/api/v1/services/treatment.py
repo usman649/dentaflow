@@ -2,7 +2,8 @@ from apps.clinic.api.v1.repositories.treatment import TreatmentRepository
 from apps.clinic.api.v1.serializers.treatment import (
     TreatmentListSerializer,
     TreatmentCreateUpdateSerializer,
-    TreatmentTypeListSerializer
+    TreatmentTypeListSerializer,
+    TreatmentTypeCreateUpdateSerializer
 )
 from apps.core.services import BaseService
 from apps.authentication.models import User
@@ -32,6 +33,18 @@ class TreatmentService(BaseService):
             context={'request': self.request},
             many=True
 
+        )
+
+    def create_treatment_type(self,*args,**kwargs):
+        serializer_class = TreatmentTypeCreateUpdateSerializer(
+            data=self.request.data,context={'request': self.request},
+        )
+        serializer_class.is_valid(raise_exception=True)
+        treatment_type = serializer_class.save()
+        return self.get_response_object(
+            treatment_type,
+            TreatmentTypeListSerializer,
+            context={'request': self.request}
         )
 
 

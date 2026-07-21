@@ -5,7 +5,8 @@ from rest_framework.views import APIView
 from apps.clinic.api.v1.serializers.treatment import (
     TreatmentListSerializer,
     TreatmentCreateUpdateSerializer,
-    TreatmentTypeListSerializer
+    TreatmentTypeListSerializer,
+    TreatmentTypeCreateUpdateSerializer
 )
 from apps.clinic.api.v1.services.treatment import TreatmentService
 
@@ -23,22 +24,7 @@ class TreatmentCreateListView(APIView):
         return TreatmentService(request=request).create_treatment(*args,**kwargs)
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-class TreatmentTypeListView(APIView):
+class TreatmentTypeCreateListView(APIView):
     permission_classes = [AllowAny]
     @swagger_auto_schema(
         responses={200: TreatmentTypeListSerializer},
@@ -47,3 +33,12 @@ class TreatmentTypeListView(APIView):
     )
     def get(self,request,*args,**kwargs):
         return TreatmentService(request=request).get_treatment_types(*args,**kwargs)
+
+    @swagger_auto_schema(
+        request_body=TreatmentTypeCreateUpdateSerializer,
+        responses={200: TreatmentTypeListSerializer},
+        tags=['TreatmentType'],
+        operation_description='Treatment Types Create',
+    )
+    def post(self,request,*args,**kwargs):
+        return TreatmentService(request=request).create_treatment_type(*args,**kwargs)

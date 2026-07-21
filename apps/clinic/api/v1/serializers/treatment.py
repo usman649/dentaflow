@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from apps.clinic.models import Treatment
+from apps.clinic.models import Treatment, TreatmentType
 
 class TreatmentListSerializer(serializers.Serializer):
     id = serializers.IntegerField()
@@ -31,3 +31,12 @@ class TreatmentCreateUpdateSerializer(serializers.ModelSerializer):
 class TreatmentTypeListSerializer(serializers.Serializer):
     id = serializers.IntegerField()
     name = serializers.CharField()
+    price = serializers.IntegerField()
+
+class TreatmentTypeCreateUpdateSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = TreatmentType
+        fields = [
+            'name',
+            'price',
+        ]

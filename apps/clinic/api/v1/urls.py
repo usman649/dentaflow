@@ -29,7 +29,7 @@ urlpatterns = [
     ),
     path(
         'treatment-types/',
-        views.TreatmentTypeListView.as_view(),
+        views.TreatmentTypeCreateListView.as_view(),
         name='treatment-type-list',
     ),
     path(

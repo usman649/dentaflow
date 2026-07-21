@@ -10,9 +10,9 @@ from apps.clinic.models import (
 
 @admin.register(TreatmentType)
 class TreatmentTypeAdmin(admin.ModelAdmin):
-    list_display = ['id','name']
-    list_display_links = ['name']
-    search_fields = ['name']
+    list_display = ['id','name','price']
+    list_display_links = ['name','price']
+    search_fields = ['name','price']
 
 @admin.register(Treatment)
 class TreatmentAdmin(admin.ModelAdmin):

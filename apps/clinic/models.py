@@ -6,6 +6,7 @@ from apps.authentication.models import User
 
 class TreatmentType(CreatedUpdatedAbstractModel):
     name = models.CharField(max_length = 255)
+    price = models.PositiveIntegerField(blank = True, null = True)
 
     def __str__(self):
         return self.name
