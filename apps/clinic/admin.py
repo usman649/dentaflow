@@ -1,17 +1,12 @@
 from django.contrib import admin
 from apps.clinic.models import (
-    Region,
     Treatment,
     TreatmentType,
     Service,
     Material
 )
 
-@admin.register(Region)
-class RegionAdmin(admin.ModelAdmin):
-    list_display = ['id','name']
-    list_display_links = ['name']
-    search_fields = ['name']
+
 
 @admin.register(TreatmentType)
 class TreatmentTypeAdmin(admin.ModelAdmin):

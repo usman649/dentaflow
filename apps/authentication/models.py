@@ -20,6 +20,8 @@ class User(CreatedUpdatedAbstractModel,AbstractBaseUser,PermissionsMixin):
     email = models.EmailField(max_length = 255,blank=True,null=True)
     birth_date = models.DateField(blank=True,null=True)
     image = models.ImageField(upload_to = 'images/',blank=True,null=True)
+    address = models.CharField(max_length = 255,blank=True,null=True)
+    office = models.CharField(max_length = 255,blank=True,null=True)
 
     # for doctors
     specialty = models.CharField(max_length=255,blank=True,null=True)
@@ -28,7 +30,6 @@ class User(CreatedUpdatedAbstractModel,AbstractBaseUser,PermissionsMixin):
 
     role = models.CharField(choices = Roles.choices, default = Roles.SUPERADMIN,max_length=200)
     doctor = models.ForeignKey('self', on_delete=models.SET_NULL,related_name='patients',limit_choices_to={'role':Roles.DOCTOR},blank=True,null=True)
-    region = models.ForeignKey('clinic.Region', on_delete=models.SET_NULL,related_name='users',blank=True,null=True)
 
 
     is_active = models.BooleanField(default=True)

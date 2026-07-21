@@ -4,7 +4,10 @@ from apps.authentication.models import User
 
 class AppointmentListSerializer(serializers.Serializer):
     id = serializers.IntegerField(read_only=True)
+    patient_id = serializers.IntegerField(read_only=True)
     patient = serializers.CharField(read_only=True)
+    phone_number = serializers.CharField(source='patient.phone_number', read_only=True)
+    doctor_id = serializers.IntegerField(read_only=True)
     doctor = serializers.CharField(read_only=True)
     date = serializers.DateField(read_only=True)
     time = serializers.TimeField(read_only=True)

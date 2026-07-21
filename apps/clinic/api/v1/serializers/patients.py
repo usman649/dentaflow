@@ -13,6 +13,9 @@ class PatientListSerializer(serializers.Serializer):
     status = serializers.SerializerMethodField()
     doctor = serializers.CharField()
     remaining = serializers.SerializerMethodField()
+    birth_date = serializers.DateField()
+    address = serializers.CharField()
+    office = serializers.CharField()
 
 
     def get_appointment_date(self, obj):
@@ -53,6 +56,10 @@ class PatientCreateUpdateSerializer(serializers.ModelSerializer):
             'full_name',
             'phone_number',
             'doctor',
+            'birth_date',
+            'address',
+            'office',
+
         ]
 
 class PatientDetailSerializer(serializers.Serializer):

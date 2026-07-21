@@ -8,6 +8,11 @@ urlpatterns = [
         views.AppointmentCreateListView.as_view(),
         name='appointments'
     ),
+    path(
+        'appointments/<int:pk>/',
+        views.AppointmentDetailUpdateDeleteView.as_view(),
+        name='appointment-detail-update-delete'
+    )
 
 
 ]

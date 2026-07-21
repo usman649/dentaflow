@@ -6,7 +6,6 @@ from django.utils.translation import gettext_lazy as _
 
 class Appointment(CreatedUpdatedAbstractModel):
     class Status(models.TextChoices):
-        PENDING = 'pending', _('Pending')
         IN_PROGRESS = 'in_progress', _('In Progress')
         COMPLETED = 'completed', _('Completed')
 
@@ -15,7 +14,7 @@ class Appointment(CreatedUpdatedAbstractModel):
     date = models.DateField()
     time = models.TimeField()
     notes = models.TextField(blank=True, null=True)
-    status = models.CharField(choices=Status.choices,max_length=20,default=Status.PENDING)
+    status = models.CharField(choices=Status.choices,max_length=20,default=Status.IN_PROGRESS)
 
     def __str__(self):
         return f"{self.patient.full_name} - {self.doctor.full_name} ({self.date})"

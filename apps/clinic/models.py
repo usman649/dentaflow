@@ -2,11 +2,7 @@ from django.db import models
 from apps.core.models import CreatedUpdatedAbstractModel
 from apps.authentication.models import User
 
-class Region(CreatedUpdatedAbstractModel):
-    name = models.CharField(max_length = 255)
 
-    def __str__(self):
-        return self.name
 
 class TreatmentType(CreatedUpdatedAbstractModel):
     name = models.CharField(max_length = 255)
