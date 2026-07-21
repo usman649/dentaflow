@@ -7,17 +7,17 @@ from drf_yasg import openapi
 from drf_yasg.views import get_schema_view
 from rest_framework import permissions
 
-admin.site.site_header = "B2B Market project Admin"
-admin.site.site_title = "B2B Market project Admin"
-admin.site.index_title = "Welcome to B2B Market project dashboard"
+admin.site.site_header = "Dentaflow Admin"
+admin.site.site_title = "Dentaflow project Admin"
+admin.site.index_title = "Welcome to Dentaflow project dashboard"
 
 schema_view = get_schema_view(
     openapi.Info(
-        title="B2B Market project API",
+        title="Dentaflow project API",
         default_version="v1",
-        description="API for B2B Market project",
+        description="API for Dentaflow",
         terms_of_service="",
-        contact=openapi.Contact(email="odiljonabduvaitov@gmail.com"),
+        contact=openapi.Contact(email="usman20060623@gmail.com"),
         license=openapi.License(name="BSD License"),
     ),
     public=True,
