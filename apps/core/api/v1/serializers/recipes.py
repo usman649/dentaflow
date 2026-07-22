@@ -19,6 +19,7 @@ class RecipeListSerializer(serializers.Serializer):
     patient = serializers.CharField()
     doctor = serializers.CharField()
     notes = serializers.CharField()
+    created_at = serializers.DateTimeField()
     medicines = MedicineListSerializer(many=True,read_only=True)
 
 class MedicineCreateUpdateSerializer(serializers.ModelSerializer):
