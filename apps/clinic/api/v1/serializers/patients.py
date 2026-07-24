@@ -71,6 +71,7 @@ class PatientDetailSerializer(serializers.Serializer):
     address = serializers.CharField()
     office = serializers.CharField()
     image = serializers.ImageField()
+    birth_date = serializers.DateField()
     age = serializers.SerializerMethodField()
     status = serializers.SerializerMethodField()
 
