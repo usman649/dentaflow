@@ -49,5 +49,20 @@ class PatientService(BaseService):
             context={'request': self.request}
         )
 
+    def update_patient(self, *args, **kwargs):
+        patient = self.db.get_patient(user_id=kwargs.get('pk'))
+        serializer_class = PatientCreateUpdateSerializer(
+            instance=patient,
+            data=self.request.data,
+            partial=True,
+            context={'request': self.request}
+        )
+        serializer_class.is_valid(raise_exception=True)
+        serializer_class.save()
+        return self.get_response_object(
+            obj=patient,
+            response_serializer_class=PatientListSerializer,
+            context={'request': self.request}
+        )
 
 

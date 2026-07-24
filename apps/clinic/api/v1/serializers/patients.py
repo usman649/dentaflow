@@ -3,6 +3,7 @@ from apps.authentication.models import User
 from apps.clinic.api.v1.serializers.galleries import GalleryListSerializer
 from datetime import datetime
 from apps.clinic.api.v1.serializers.treatment import TreatmentTypeListSerializer
+from apps.core.api.v1.serializers.recipes import RecipeListSerializer
 
 class PatientListSerializer(serializers.Serializer):
     id = serializers.IntegerField()
@@ -67,6 +68,8 @@ class PatientDetailSerializer(serializers.Serializer):
     full_name = serializers.CharField()
     phone_number = serializers.CharField()
     doctor = serializers.CharField()
+    address = serializers.CharField()
+    office = serializers.CharField()
     image = serializers.ImageField()
     age = serializers.SerializerMethodField()
     status = serializers.SerializerMethodField()
@@ -78,7 +81,7 @@ class PatientDetailSerializer(serializers.Serializer):
 
     treatment_type = serializers.SerializerMethodField()
     gallery = GalleryListSerializer(many=True,read_only=True)
-
+    recipe = RecipeListSerializer(source='patient_recipes', many=True, read_only=True)
 
 
     def get_age(self,obj):

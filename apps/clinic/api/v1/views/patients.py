@@ -70,3 +70,13 @@ class PatientDetailUpdateDeleteView(APIView):
         return PatientService(request=request).get_patient(*args,**kwargs)
 
 
+    @swagger_auto_schema(
+        request_body=PatientCreateUpdateSerializer,
+        responses={200: PatientListSerializer},
+        tags=['Patient'],
+        operation_description='Patient Update',
+    )
+    def patch(self,request,*args,**kwargs):
+        return PatientService(request=request).update_patient(*args,**kwargs)
+
+
