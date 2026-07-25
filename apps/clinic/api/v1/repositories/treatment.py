@@ -4,7 +4,7 @@ from apps.authentication.models import User
 
 class TreatmentRepository:
     def get_treatments(self):
-        treatments = Treatment.objects.filter(patient=User.Roles.PATIENT)
+        treatments = Treatment.objects.filter(patient__role=User.Roles.PATIENT)
         return treatments
 
     def get_treatment(self,treatment_id):

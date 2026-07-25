@@ -23,6 +23,14 @@ class TreatmentCreateListView(APIView):
     def post(self,request,*args,**kwargs):
         return TreatmentService(request=request).create_treatment(*args,**kwargs)
 
+    @swagger_auto_schema(
+        responses={200: TreatmentListSerializer},
+        tags=['Treatment'],
+        operation_description='Treatment List',
+    )
+    def get(self,request,*args,**kwargs):
+        return TreatmentService(request=request).get_treatments(*args,**kwargs)
+
 
 class TreatmentTypeCreateListView(APIView):
     permission_classes = [AllowAny]

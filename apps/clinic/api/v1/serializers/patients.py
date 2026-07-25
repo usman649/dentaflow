@@ -4,6 +4,7 @@ from apps.clinic.api.v1.serializers.galleries import GalleryListSerializer
 from datetime import datetime
 from apps.clinic.api.v1.serializers.treatment import TreatmentTypeListSerializer
 from apps.core.api.v1.serializers.recipes import RecipeListSerializer
+from django.db.models import Sum
 
 class PatientListSerializer(serializers.Serializer):
     id = serializers.IntegerField()
@@ -14,6 +15,7 @@ class PatientListSerializer(serializers.Serializer):
     status = serializers.SerializerMethodField()
     doctor = serializers.CharField()
     remaining = serializers.SerializerMethodField()
+    total_remaining = serializers.SerializerMethodField()
     birth_date = serializers.DateField()
     address = serializers.CharField()
     office = serializers.CharField()
@@ -44,6 +46,17 @@ class PatientListSerializer(serializers.Serializer):
         if treatment:
             return treatment.total_treatment_cost - treatment.total_paid
         return None
+
+    def get_total_remaining(self, obj):
+        totals = obj.patient_treatments.aggregate(
+            sum_cost=Sum('total_treatment_cost'),
+            sum_paid=Sum('total_paid')
+        )
+
+        total_cost = totals.get('sum_cost') or 0
+        total_paid = totals.get('sum_paid') or 0
+
+        return total_cost - total_paid
 
 
 
@@ -78,6 +91,7 @@ class PatientDetailSerializer(serializers.Serializer):
     total_treatment_cost = serializers.SerializerMethodField()
     total_paid = serializers.SerializerMethodField()
     remaining = serializers.SerializerMethodField()
+    total_remaining = serializers.SerializerMethodField()
     visit_number = serializers.SerializerMethodField()
 
     treatment_type = serializers.SerializerMethodField()
@@ -127,6 +141,17 @@ class PatientDetailSerializer(serializers.Serializer):
         if treatment:
             return treatment.total_treatment_cost - treatment.total_paid
         return 0
+
+    def get_total_remaining(self, obj):
+        totals = obj.patient_treatments.aggregate(
+            sum_cost=Sum('total_treatment_cost'),
+            sum_paid=Sum('total_paid')
+        )
+
+        total_cost = totals.get('sum_cost') or 0
+        total_paid = totals.get('sum_paid') or 0
+
+        return total_cost - total_paid
 
     def get_visit_number(self, obj):
         treatment = obj.patient_treatments.first()

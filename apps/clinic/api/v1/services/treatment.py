@@ -26,6 +26,15 @@ class TreatmentService(BaseService):
             context={'request': self.request}
         )
 
+    def get_treatments(self,*args,**kwargs):
+        treatment = self.db.get_treatments()
+        return self.get_response(
+            treatment,
+            TreatmentListSerializer,
+            context={'request': self.request},
+            many=True
+        )
+
 
 
     def get_treatment_types(self,*args,**kwargs):
