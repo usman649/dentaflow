@@ -11,10 +11,14 @@ class TreatmentListSerializer(serializers.Serializer):
     treatment_type = serializers.CharField()
     total_treatment_cost = serializers.IntegerField()
     total_paid = serializers.IntegerField()
+    remaining = serializers.SerializerMethodField()
     visit_number = serializers.IntegerField()
     tooth_number = serializers.IntegerField()
     start_date = serializers.DateField()
     notes = serializers.CharField()
+
+    def get_remaining(self, obj):
+        return obj.total_treatment_cost - obj.total_paid
 
 class TreatmentBulkCreateListSerializer(serializers.ListSerializer):
     def create(self, validated_data):
