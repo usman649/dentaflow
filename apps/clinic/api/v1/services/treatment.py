@@ -8,6 +8,7 @@ from apps.clinic.api.v1.serializers.treatment import (
 from apps.core.services import BaseService
 from apps.authentication.models import User
 from rest_framework import status
+from apps.clinic.api.v1.filters.treatment import TreatmentFilter
 
 class TreatmentService(BaseService):
     def __init__(self,request):
@@ -27,12 +28,18 @@ class TreatmentService(BaseService):
         )
 
     def get_treatments(self,*args,**kwargs):
-        treatment = self.db.get_treatments()
-        return self.get_response(
-            treatment,
+        unfiltered_treatment = self.db.get_treatments()
+
+        filtered_treatment = TreatmentFilter(
+            data=self.request.query_params,
+            queryset=unfiltered_treatment,
+            request=self.request,
+        ).qs
+
+        return self.get_paginated_response(
+            filtered_treatment,
             TreatmentListSerializer,
             context={'request': self.request},
-            many=True
         )
 
 

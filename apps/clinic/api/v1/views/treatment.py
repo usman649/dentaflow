@@ -27,6 +27,14 @@ class TreatmentCreateListView(APIView):
         responses={200: TreatmentListSerializer},
         tags=['Treatment'],
         operation_description='Treatment List',
+        manual_parameters=[
+            openapi.Parameter(
+                name='patient_id',
+                in_=openapi.IN_QUERY,
+                type=openapi.TYPE_INTEGER,
+                description='Patient ID',
+            )
+        ],
     )
     def get(self,request,*args,**kwargs):
         return TreatmentService(request=request).get_treatments(*args,**kwargs)
