@@ -15,8 +15,8 @@ class TreatmentCreateListView(APIView):
     permission_classes = [AllowAny]
 
     @swagger_auto_schema(
-        request_body=TreatmentCreateUpdateSerializer,
-        responses={200: TreatmentListSerializer},
+        request_body=TreatmentCreateUpdateSerializer(many=True),
+        responses={200: TreatmentListSerializer(many=True)},
         tags=['Treatment'],
         operation_description='Treatment Create',
     )

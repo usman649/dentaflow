@@ -1,9 +1,12 @@
 from rest_framework import serializers
 from apps.clinic.models import Treatment, TreatmentType
+from django.db import transaction
+
 
 class TreatmentListSerializer(serializers.Serializer):
     id = serializers.IntegerField()
     patient = serializers.CharField()
+    patient_id = serializers.IntegerField()
     doctor = serializers.CharField()
     treatment_type = serializers.CharField()
     total_treatment_cost = serializers.IntegerField()
@@ -13,9 +16,15 @@ class TreatmentListSerializer(serializers.Serializer):
     start_date = serializers.DateField()
     notes = serializers.CharField()
 
+class TreatmentBulkCreateListSerializer(serializers.ListSerializer):
+    def create(self, validated_data):
+        treatments = [Treatment(**item) for item in validated_data]
+        return Treatment.objects.bulk_create(treatments)
+
 class TreatmentCreateUpdateSerializer(serializers.ModelSerializer):
     class Meta:
         model = Treatment
+        list_serializer_class = TreatmentBulkCreateListSerializer
         fields = [
             'patient',
             'doctor',

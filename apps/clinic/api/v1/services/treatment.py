@@ -18,13 +18,16 @@ class TreatmentService(BaseService):
     def create_treatment(self,*args,**kwargs):
         serializer_class = TreatmentCreateUpdateSerializer(
             data=self.request.data,context={'request': self.request},
+            many=True,
         )
         serializer_class.is_valid(raise_exception=True)
         treatment = serializer_class.save()
-        return self.get_response_object(
+        return self.get_response(
             treatment,
             TreatmentListSerializer,
-            context={'request': self.request}
+            context={'request': self.request},
+            many=True
+
         )
 
     def get_treatments(self,*args,**kwargs):
