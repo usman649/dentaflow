@@ -45,6 +45,13 @@ class TreatmentService(BaseService):
             context={'request': self.request},
         )
 
+    def delete_treatment(self,*args,**kwargs):
+        treatment = self.db.get_treatment(treatment_id=kwargs.get('pk'))
+        treatment.delete()
+        return self.get_response_object(
+            context={'request': self.request},
+            status_code=status.HTTP_204_NO_CONTENT,
+        )
 
 
     def get_treatment_types(self,*args,**kwargs):

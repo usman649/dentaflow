@@ -28,6 +28,11 @@ urlpatterns = [
         name='treatments-create-list',
     ),
     path(
+        'treatments/<int:pk>/',
+        views.TreatmentDetailUpdateDeleteView.as_view(),
+        name='treatment-detail-update',
+    ),
+    path(
         'treatment-types/',
         views.TreatmentTypeCreateListView.as_view(),
         name='treatment-type-list',

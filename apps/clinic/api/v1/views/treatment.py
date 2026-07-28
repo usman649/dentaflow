@@ -39,6 +39,14 @@ class TreatmentCreateListView(APIView):
     def get(self,request,*args,**kwargs):
         return TreatmentService(request=request).get_treatments(*args,**kwargs)
 
+class TreatmentDetailUpdateDeleteView(APIView):
+    permission_classes = [AllowAny]
+    @swagger_auto_schema(
+        tags=['Treatment'],
+        operation_description='Treatment Delete',
+    )
+    def delete(self,request,*args,**kwargs):
+        return TreatmentService(request=request).delete_treatment(*args,**kwargs)
 
 class TreatmentTypeCreateListView(APIView):
     permission_classes = [AllowAny]
