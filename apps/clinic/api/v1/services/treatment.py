@@ -53,6 +53,22 @@ class TreatmentService(BaseService):
             status_code=status.HTTP_204_NO_CONTENT,
         )
 
+    def update_treatment(self, *args, **kwargs):
+        treatment = self.db.get_treatment(treatment_id=kwargs.get('pk'))
+        serializer_class = TreatmentCreateUpdateSerializer(
+            instance=treatment,
+            data=self.request.data,
+            partial=True,
+            context={'request': self.request}
+        )
+        serializer_class.is_valid(raise_exception=True)
+        serializer_class.save()
+        return self.get_response_object(
+            obj=treatment,
+            response_serializer_class=TreatmentListSerializer,
+            context={'request': self.request}
+        )
+
 
     def get_treatment_types(self,*args,**kwargs):
         treatment_types = self.db.get_treatment_types()

@@ -48,6 +48,15 @@ class TreatmentDetailUpdateDeleteView(APIView):
     def delete(self,request,*args,**kwargs):
         return TreatmentService(request=request).delete_treatment(*args,**kwargs)
 
+    @swagger_auto_schema(
+        request_body=TreatmentCreateUpdateSerializer,
+        responses={200: TreatmentListSerializer},
+        tags=['Treatment'],
+        operation_description='Treatment  Update',
+    )
+    def patch(self, request, *args, **kwargs):
+        return TreatmentService(request=request).update_treatment(*args, **kwargs)
+
 class TreatmentTypeCreateListView(APIView):
     permission_classes = [AllowAny]
     @swagger_auto_schema(
