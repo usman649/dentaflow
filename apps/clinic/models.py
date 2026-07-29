@@ -1,6 +1,7 @@
 from django.db import models
 from apps.core.models import CreatedUpdatedAbstractModel
 from apps.authentication.models import User
+from django.utils.translation import gettext_lazy as _
 
 
 
@@ -12,6 +13,10 @@ class TreatmentType(CreatedUpdatedAbstractModel):
         return self.name
 
 class Treatment(CreatedUpdatedAbstractModel):
+    class Status(models.TextChoices):
+        IN_PROGRESS = 'in_progress', _('In Progress')
+        COMPLETED = 'completed', _('Completed')
+
     patient = models.ForeignKey(
         User,
         on_delete = models.SET_NULL,
@@ -43,6 +48,8 @@ class Treatment(CreatedUpdatedAbstractModel):
     tooth_number = models.PositiveIntegerField()
     start_date = models.DateField()
     notes = models.TextField(blank=True, null=True)
+    status = models.CharField(choices=Status.choices,max_length=20,default=Status.IN_PROGRESS)
+
 
 class Service(CreatedUpdatedAbstractModel):
     name = models.CharField(max_length = 255)

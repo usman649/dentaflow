@@ -16,6 +16,7 @@ class TreatmentListSerializer(serializers.Serializer):
     tooth_number = serializers.IntegerField()
     start_date = serializers.DateField()
     notes = serializers.CharField()
+    status = serializers.CharField()
 
     def get_remaining(self, obj):
         return obj.total_treatment_cost - obj.total_paid
@@ -39,6 +40,7 @@ class TreatmentCreateUpdateSerializer(serializers.ModelSerializer):
             'tooth_number',
             'start_date',
             'notes',
+            'status',
         ]
 
 class TreatmentTypeListSerializer(serializers.Serializer):
