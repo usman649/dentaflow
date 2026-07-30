@@ -30,9 +30,9 @@ class PatientListSerializer(serializers.Serializer):
         return None
 
     def get_status(self, obj):
-        latest_appointment = obj.patient_appointments.order_by('-date', '-time').first()
-        if latest_appointment:
-            return latest_appointment.status
+        latest_treatment = obj.patient_treatments.order_by('-created_at').first()
+        if latest_treatment:
+            return latest_treatment.status
         return None
 
     def get_treatment_type(self, obj):
