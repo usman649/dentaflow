@@ -11,7 +11,7 @@ from apps.clinic.api.v1.services.patients import PatientService
 
 
 class PatientCreateListView(APIView):
-    permission_classes = [AllowAny]
+    permission_classes = [IsAuthenticated]
 
     @swagger_auto_schema(
         responses={200: PatientListSerializer},
@@ -60,7 +60,7 @@ class PatientCreateListView(APIView):
         return PatientService(request=request).create_patient(*args,**kwargs)
 
 class PatientDetailUpdateDeleteView(APIView):
-    permission_classes = [AllowAny]
+    permission_classes = [IsAuthenticated]
     @swagger_auto_schema(
         responses={200: PatientDetailSerializer},
         tags=['Patient'],

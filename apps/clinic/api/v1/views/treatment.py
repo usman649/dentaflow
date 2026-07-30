@@ -12,7 +12,7 @@ from apps.clinic.api.v1.services.treatment import TreatmentService
 
 
 class TreatmentCreateListView(APIView):
-    permission_classes = [AllowAny]
+    permission_classes = [IsAuthenticated]
 
     @swagger_auto_schema(
         request_body=TreatmentCreateUpdateSerializer(many=True),
@@ -40,7 +40,7 @@ class TreatmentCreateListView(APIView):
         return TreatmentService(request=request).get_treatments(*args,**kwargs)
 
 class TreatmentDetailUpdateDeleteView(APIView):
-    permission_classes = [AllowAny]
+    permission_classes = [IsAuthenticated]
     @swagger_auto_schema(
         tags=['Treatment'],
         operation_description='Treatment Delete',
@@ -58,7 +58,7 @@ class TreatmentDetailUpdateDeleteView(APIView):
         return TreatmentService(request=request).update_treatment(*args, **kwargs)
 
 class TreatmentTypeCreateListView(APIView):
-    permission_classes = [AllowAny]
+    permission_classes = [IsAuthenticated]
     @swagger_auto_schema(
         responses={200: TreatmentTypeListSerializer},
         tags=['TreatmentType'],
@@ -78,7 +78,7 @@ class TreatmentTypeCreateListView(APIView):
 
 
 class TreatmentTypeDetailUpdateDeleteView(APIView):
-    permission_classes = [AllowAny]
+    permission_classes = [IsAuthenticated]
     @swagger_auto_schema(
         request_body=TreatmentTypeCreateUpdateSerializer,
         responses={200: TreatmentTypeListSerializer},

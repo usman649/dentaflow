@@ -9,7 +9,7 @@ from apps.clinic.api.v1.serializers.galleries import (
 from apps.clinic.api.v1.services.galleries import GalleryService
 
 class GalleryCreateView(APIView):
-    permission_classes = [AllowAny]
+    permission_classes = [IsAuthenticated]
 
     @swagger_auto_schema(
         request_body=GalleryCreateUpdateSerializer,

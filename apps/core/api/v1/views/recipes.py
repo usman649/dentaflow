@@ -11,7 +11,7 @@ from apps.core.api.v1.serializers.recipes import (
 from apps.core.api.v1.services.recipes import RecipeService
 
 class RecipeCreateListView(APIView):
-    permission_classes = [AllowAny]
+    permission_classes = [IsAuthenticated]
 
     @swagger_auto_schema(
         request_body=RecipeCreateUpdateSerializer,
@@ -32,7 +32,7 @@ class RecipeCreateListView(APIView):
 
 
 class RecipeDetailUpdateDeleteView(APIView):
-    permission_classes = [AllowAny]
+    permission_classes = [IsAuthenticated]
 
     @swagger_auto_schema(
         tags=['Recipe'],

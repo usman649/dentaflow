@@ -11,7 +11,7 @@ from apps.clinic.api.v1.serializers.service import (
 from apps.clinic.api.v1.services.service import ServiceService
 
 class ServiceCreateListView(APIView):
-    permission_classes = [AllowAny]
+    permission_classes = [IsAuthenticated]
 
     @swagger_auto_schema(
         request_body=ServiceCreateUpdateSerializer,
@@ -40,7 +40,7 @@ class ServiceCreateListView(APIView):
 
 
 class ServiceDetailUpdateDeleteView(APIView):
-    permission_classes = [AllowAny]
+    permission_classes = [IsAuthenticated]
     @swagger_auto_schema(
         request_body=ServiceCreateUpdateSerializer,
         responses={200: ServiceListSerializer},

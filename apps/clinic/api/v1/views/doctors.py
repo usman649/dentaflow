@@ -9,7 +9,7 @@ from apps.clinic.api.v1.serializers.doctors import (
 from apps.clinic.api.v1.services.doctors import DoctorService
 
 class DoctorCreateListView(APIView):
-    permission_classes = [AllowAny]
+    permission_classes = [IsAuthenticated]
 
     @swagger_auto_schema(
         responses={200: DoctorListSerializer},
@@ -30,7 +30,7 @@ class DoctorCreateListView(APIView):
 
 
 class DoctorDetailUpdateDeleteView(APIView):
-    permission_classes = [AllowAny]
+    permission_classes = [IsAuthenticated]
     @swagger_auto_schema(
         request_body=DoctorCreateUpdateSerializer,
         responses={200: DoctorListSerializer},

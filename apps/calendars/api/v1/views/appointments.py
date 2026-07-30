@@ -10,7 +10,7 @@ from apps.calendars.api.v1.services.appointments import AppointmentService
 
 
 class AppointmentCreateListView(APIView):
-    permission_classes = [AllowAny]
+    permission_classes = [IsAuthenticated]
     @swagger_auto_schema(
         responses={200: AppointmentListSerializer},
         tags=['Appointments'],
@@ -40,7 +40,7 @@ class AppointmentCreateListView(APIView):
 
 
 class AppointmentDetailUpdateDeleteView(APIView):
-    permission_classes = [AllowAny]
+    permission_classes = [IsAuthenticated]
     @swagger_auto_schema(
         request_body=AppointmentCreateUpdateSerializer,
         responses={200: AppointmentListSerializer},
