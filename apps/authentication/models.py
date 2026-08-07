@@ -16,7 +16,7 @@ class User(CreatedUpdatedAbstractModel,AbstractBaseUser,PermissionsMixin):
 
     username = models.CharField(max_length = 255,unique=True,blank=True,null=True)
     full_name = models.CharField(max_length = 255)
-    phone_number = models.CharField(max_length = 14,validators=[validate_number],unique=True)
+    phone_number = models.CharField(max_length = 14,validators=[validate_number])
     email = models.EmailField(max_length = 255,blank=True,null=True)
     birth_date = models.DateField(blank=True,null=True)
     image = models.ImageField(upload_to = 'images/',blank=True,null=True)
