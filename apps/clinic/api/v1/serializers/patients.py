@@ -10,7 +10,7 @@ class PatientListSerializer(serializers.Serializer):
     id = serializers.IntegerField()
     full_name = serializers.CharField()
     phone_number = serializers.CharField()
-    appointment_date = serializers.SerializerMethodField()
+    treatment_date = serializers.SerializerMethodField()
     treatment_type = serializers.SerializerMethodField()
     status = serializers.SerializerMethodField()
     doctor = serializers.CharField()
@@ -21,12 +21,10 @@ class PatientListSerializer(serializers.Serializer):
     office = serializers.CharField()
 
 
-    def get_appointment_date(self, obj):
-        latest_appointment = obj.patient_appointments.order_by('-date', '-time').first()
-        if latest_appointment:
-            date_str = latest_appointment.date.strftime('%d.%m.%Y')
-            time_str = latest_appointment.time.strftime('%H:%M')
-            return f"{date_str} {time_str}"
+    def get_treatment_date(self, obj):
+        latest_treatment = obj.patient_treatments.order_by('-created_at').first()
+        if latest_treatment and latest_treatment.start_date:
+            return latest_treatment.start_date.strftime('%Y.%m.%d')
         return None
 
     def get_status(self, obj):
